@@ -1,9 +1,9 @@
 const siteMetadata = {
-  title: 'Blog | Parth Desai',
-  author: 'Parth Desai',
-  headerTitle: 'Mere Musings',
-  description: 'My personal blog where I share my musings',
-  snippets: 'Reuseable code snippets collected by Parth',
+  title: 'Thoughts of a Rando',
+  author: 'No one important',
+  headerTitle: 'Thoughts',
+  description: 'the Thoughts of a Rando. I really just wanted a place to scream into the void',
+  snippets: "Don't have any,",
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://musing.vercel.app',
