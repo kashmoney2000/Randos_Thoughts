@@ -5,20 +5,11 @@ import siteMetadata from '@/data/siteMetadata'
 import formatDate from '@/lib/utils/formatDate'
 import { RoughNotation } from 'react-rough-notation'
 import ViewCounter from '@/components/ViewCounter'
-// import { getPosts } from '@/lib/notion'
-// import { getLatestFivePublished } from '@/lib/notionCms'
 import { getPosts } from '@/lib/notion'
 
 const MAX_DISPLAY = 3
 
 export async function getStaticProps() {
-  // await go()
-  // const posts = await getAllFilesFrontMatter('blog/blogs')
-  // const posts = postsMetadata.then((results) => {
-  //   return results
-  // })
-  //------------
-  // let posts = await getLatestFivePublished()
   let posts = await getPosts(process.env.NOTION_DATABASE_ID, 5)
   return { props: { posts } }
 }
@@ -81,65 +72,9 @@ export default function Home({ posts }) {
               </div>
             </p>
           </div>
-          {/* <div className="h-content sm:h-content-sm flex flex-col justify-around">
-            <h1 className="sm:text-8.5xl tracking-tightest my-28 select-none text-center text-6xl font-extrabold leading-none sm:my-10">
-              <span
-                data-content="Blog."
-                className="relative block before:absolute before:top-0 before:bottom-0 before:left-0 before:block before:w-full before:animate-gradient-background-1 before:px-2 before:text-center before:text-black before:content-[attr(data-content)] dark:before:text-white dark:before:content-[attr(data-content)]"
-              >
-                <span className="animate-gradient-foreground-1 bg-gradient-to-br from-gradient-1-start to-gradient-1-end bg-clip-text px-2 text-transparent">
-                  Blog.
-                </span>
-              </span>
-              <span
-                data-content="Coding."
-                className="relative block before:absolute before:top-0 before:bottom-0 before:left-0 before:block before:w-full before:animate-gradient-background-2 before:px-2 before:text-center before:text-black before:content-[attr(data-content)] dark:before:text-white dark:before:content-[attr(data-content)]"
-              >
-                <span className="animate-gradient-foreground-2 bg-gradient-to-br from-gradient-2-start to-gradient-2-end bg-clip-text px-2 text-transparent">
-                  Coding.
-                </span>
-              </span>
-              <span
-                data-content="Portfolio."
-                className="relative block before:absolute before:top-0 before:bottom-0 before:left-0 before:block before:w-full before:animate-gradient-background-3 before:px-2 before:text-center before:text-black before:content-[attr(data-content)] dark:before:text-white dark:before:content-[attr(data-content)]"
-              >
-                <span className="animate-gradient-foreground-3 bg-gradient-to-br from-gradient-3-start to-gradient-3-end bg-clip-text px-2 text-transparent">
-                  Portfolio.
-                </span>
-              </span>
-            </h1>
-          </div> */}
           <div className="flex items-center justify-center">
             <div className="grid grid-cols-1 grid-rows-3 gap-8 py-12">
-              <div className="my-2 grid items-start gap-8">
-                {/*<div className="group relative">*/}
-                {/*  <div className="animate-tilt absolute -inset-0.5 rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 opacity-50 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>*/}
-                {/*  <Link href="/projects">*/}
-                {/*    <span className="relative flex items-center divide-x divide-gray-600 rounded-lg bg-white px-7 py-4 leading-none dark:bg-black">*/}
-                {/*      <span className="flex items-center space-x-5">*/}
-                {/*        <svg*/}
-                {/*          xmlns="http://www.w3.org/2000/svg"*/}
-                {/*          className="h-6 w-6 -rotate-6 text-green-600"*/}
-                {/*          fill="none"*/}
-                {/*          viewBox="0 0 24 24"*/}
-                {/*          stroke="currentColor"*/}
-                {/*        >*/}
-                {/*          <path*/}
-                {/*            strokeLinecap="round"*/}
-                {/*            strokeLinejoin="round"*/}
-                {/*            strokeWidth="2"*/}
-                {/*            d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"*/}
-                {/*          />*/}
-                {/*        </svg>*/}
-                {/*        <span className="pr-6 text-gray-900 dark:text-gray-100">What I built</span>*/}
-                {/*      </span>*/}
-                {/*      <span className="pl-6 text-amber-400 transition duration-200 group-hover:text-gray-900 dark:group-hover:text-gray-100">*/}
-                {/*        Projects&nbsp;&rarr;*/}
-                {/*      </span>*/}
-                {/*    </span>*/}
-                {/*  </Link>*/}
-                {/*</div>*/}
-              </div>
+              <div className="my-2 grid items-start gap-8"></div>
               <div className="my-2 grid items-start gap-8">
                 <div className="group relative">
                   <div className="animate-tilt absolute -inset-0.5 rounded-lg bg-gradient-to-r from-fuchsia-600 to-emerald-600 opacity-50 blur transition duration-1000 group-hover:opacity-100 group-hover:duration-200"></div>
@@ -212,7 +147,6 @@ export default function Home({ posts }) {
         <ul>
           {!posts.length && 'No posts found.'}
           {posts.slice(0, MAX_DISPLAY).map((post) => {
-            // const { slug, date, title, summary, Type } = post.properties
             const slug = post.properties.slug
             const date = post.properties.date.created_time
             const title = post.properties.title.title[0].plain_text
