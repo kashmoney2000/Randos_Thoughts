@@ -7,8 +7,11 @@ import ViewCounter from '@/components/ViewCounter'
 
 export default function ListLayout({ posts, title, initialDisplayPosts = [], pagination }) {
   const [searchValue, setSearchValue] = useState('')
-  const filteredBlogPosts = posts.filter((frontMatter) => {
-    const searchContent = frontMatter.title + frontMatter.summary + frontMatter.tags.join(' ')
+  const filteredBlogPosts = posts.filter((post) => {
+    let searchContent = post.properties.title.title[0].plain_text
+    if (post.summary) {
+      searchContent = searchContent + post.summary // + frontMatter.tags.join(' ') #TODO make filter smarter also .summary will never work. gotta do properties
+    }
     return searchContent.toLowerCase().includes(searchValue.toLowerCase())
   })
 
@@ -49,15 +52,20 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
         </div>
         <ul>
           {!filteredBlogPosts.length && 'No posts found.'}
-          {displayPosts.map((frontMatter) => {
-            const { slug, date, title, summary, tags } = frontMatter
+          {displayPosts.map((post) => {
+            let { id, slug, date, title, summary, Type } = post
+            date = post.properties.date.created_time
+            title = post.properties.title.title[0].plain_text
+            id = post.id.replace(/-/g, '')
+            summary = '' //#TODO
+            Type = post.properties.Type[post.properties.Type.type]
             return (
               <Link
-                href={`/blog/${slug}`}
-                key={slug}
+                href={`/blog/${id}`}
+                key={id}
                 className="group flex bg-transparent bg-opacity-20 px-2 transition duration-100 hover:scale-105 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800"
               >
-                <li key={slug} className="py-6">
+                <li key={id} className="py-6">
                   <article className="space-y-2 bg-transparent bg-opacity-20 p-2 transition duration-200 hover:rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-3">
                     <dl>
                       <dd className="text-sm font-normal leading-6 text-gray-500 dark:text-gray-400">
@@ -72,7 +80,7 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                         <div>
                           <h2 className="text-2xl font-bold leading-8 tracking-tight">
                             <Link
-                              href={`/blog/${slug}`}
+                              href={`/blog/${id}`}
                               className="text-gray-900 transition duration-500 ease-in-out hover:text-primary-500 dark:text-gray-100 dark:hover:text-primary-500"
                             >
                               {title}
@@ -80,8 +88,8 @@ export default function ListLayout({ posts, title, initialDisplayPosts = [], pag
                           </h2>
                         </div>
                         <div className="flex flex-wrap">
-                          {tags.map((tag) => (
-                            <Tag key={tag} text={tag} />
+                          {Type.map((Type) => (
+                            <Tag key={Type.name} text={Type.name} />
                           ))}
                         </div>
                         <div className="prose max-w-none pt-5 text-gray-500 dark:text-gray-400">
