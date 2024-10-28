@@ -1,21 +1,21 @@
 const siteMetadata = {
   title: 'Thoughts of a Rando',
-  author: 'No one important',
+  author: 'Koosh',
   headerTitle: 'Thoughts',
   description: 'the Thoughts of a Rando. I really just wanted a place to scream into the void',
   snippets: "Don't have any,",
   language: 'en-us',
   theme: 'system', // system, dark or light
-  siteUrl: 'https://musing.vercel.app',
+  siteUrl: 'https://randos-thoughts.vercel.app',
   siteRepo: 'https://github.com/pycoder2000/blog',
   siteLogo: '/static/images/logo.png',
   image: '/static/images/avatar.png',
   socialBanner: '/static/images/twitter-card.png',
-  email: 'desaiparth2000@gmail.com',
+  email: 'kooshyoop@gmail.com',
   github: 'https://github.com/pycoder2000',
-  twitter: 'https://twitter.com/_ParthDesai_',
+  twitter: 'https://twitter.com/kooshyoop',
   linkedin: 'https://www.linkedin.com/in/parth-desai-2bb1b0160/',
-  website: 'https://parthdesai.vercel.app',
+  website: 'https://randos-thoughts.vercel.app',
   locale: 'en-US',
   analytics: {
     plausibleDataDomain: '', // e.g. tailwind-nextjs-starter-blog.vercel.app
@@ -46,7 +46,7 @@ const siteMetadata = {
     },
   },
   socialAccount: {
-    twitter: '_ParthDesai_',
+    twitter: 'kooshyoop',
   },
 }
 
