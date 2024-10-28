@@ -1,45 +1,29 @@
-import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
-import { BlogSEO } from '@/components/SEO'
-import Image from '@/components/Image'
 import ViewCounter from '@/components/ViewCounter'
-import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
-// import Comments from '@/components/comments'
-import ScrollTopAndComment from '@/components/ScrollTopAndComment'
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  EmailShareButton,
-  LinkedinShareButton,
-  RedditShareButton,
-  WhatsappShareButton,
-} from 'react-share'
-import { SocialIcon } from 'react-social-icons'
 import { HiOutlinePencil, HiOutlineClock, HiOutlineEye } from 'react-icons/hi'
 import { BsCalendarDate } from 'react-icons/bs'
+import { BlogSEO } from '@/components/SEO'
 
 const editUrl = (fileName) => `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`
 
 const postDateTemplate = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
 
 export default function PostLayout({ frontMatter, authorDetails, next, prev, children }) {
-  // const { slug, fileName, date, title, images, tags, readingTime } = frontMatter
   const slug = frontMatter.slug
-  const date = frontMatter.date.created_time
+  const created_time = frontMatter.date.created_time
   const title = frontMatter.title.title[0].plain_text
   const readingTime = frontMatter.readingTime
 
-  const postUrl = `${siteMetadata.siteUrl}/blog/${slug}`
   return (
     <SectionContainer>
-      {/*<BlogSEO*/}
-      {/*  url={`${siteMetadata.siteUrl}/blog/${slug}`}*/}
-      {/*  authorDetails={authorDetails}*/}
-      {/*  {...frontMatter}*/}
-      {/*/>*/}
-      {/*<ScrollTopAndComment />*/}
+      <BlogSEO
+        url={`${siteMetadata.siteUrl}/blog/${frontMatter.id}`}
+        authorDetails={authorDetails}
+        {...frontMatter}
+      />
+      {/*/!*<ScrollTopAndComment />*!/ #TODO Maybe re-enable?*/}
       <article>
         <div className="xl:divide-y xl:divide-gray-200 xl:dark:divide-gray-700">
           <header className="pt-6 xl:pb-5">
@@ -48,9 +32,12 @@ export default function PostLayout({ frontMatter, authorDetails, next, prev, chi
                 <div>
                   <dt className="sr-only">Published on</dt>
                   <dd className="text-base font-medium leading-6 text-gray-500 dark:text-gray-400">
-                    <time dateTime={date}>
+                    <time dateTime={created_time}>
                       <BsCalendarDate className="mr-1.5 -mt-1.5 inline h-4 w-4" />
-                      {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
+                      {new Date(created_time).toLocaleDateString(
+                        siteMetadata.locale,
+                        postDateTemplate
+                      )}
                     </time>
                   </dd>
                 </div>

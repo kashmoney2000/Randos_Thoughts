@@ -71,6 +71,7 @@ export const TagSEO = ({ title, description }) => {
   )
 }
 
+//#TODO: make sure this stuff actually gets filled out
 export const BlogSEO = ({
   authorDetails,
   title,
@@ -81,16 +82,17 @@ export const BlogSEO = ({
   images = [],
   canonicalUrl,
 }) => {
+  title = title.title[0].plain_text
   const router = useRouter()
-  const publishedAt = new Date(date).toISOString()
-  const modifiedAt = new Date(lastmod || date).toISOString()
+  const publishedAt = new Date(date[date.type]).toISOString()
+  // const modifiedAt = new Date(lastmod || date).toISOString() #Todo maybe add modified?
+  const modifiedAt = publishedAt
   let imagesArr =
     images.length === 0
       ? [siteMetadata.socialBanner]
       : typeof images === 'string'
       ? [images]
       : images
-
   const featuredImages = imagesArr.map((img) => {
     return {
       '@type': 'ImageObject',
@@ -137,7 +139,6 @@ export const BlogSEO = ({
   }
 
   const twImageUrl = featuredImages[0].url
-
   return (
     <>
       <CommonSEO
